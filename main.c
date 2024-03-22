@@ -11,6 +11,7 @@ void promedio(Pila p);
 int sumaDeValoresEnUna(Pila p);
 int cuantoDividir(Pila p);
 float resultadoDelPromedio(int suma, int dividendo);
+void decimalDesdePila(Pila p);
 
 int main()
 {
@@ -77,12 +78,22 @@ int main()
     */
 
     ///Ejercicio 9
+    /*
     Pila dada;
     inicpila(&dada);
 
     acumularPilas(&dada);
 
     promedio(dada);
+    */
+
+    ///Ejercicio 10
+    Pila dada;
+    inicpila(&dada);
+
+    acumularPilas(&dada);
+
+    decimalFromStack(dada);
 
     return 0;
 }
@@ -155,6 +166,7 @@ void sumaTopeYAnterior(Pila p){
     printf("El resultado de la suma es de: %d", suma);
 }
 
+/*
 void promedio(Pila p){
     int suma = sumaDeValoresEnUna(p);
     int dividendo = cuantoDividir(p);
@@ -172,6 +184,7 @@ int sumaDeValoresEnUna(Pila p){
     return suma;
 }
 
+/*
 int cuantoDividir(Pila p){
     int dividendo = 0;
 
@@ -181,9 +194,22 @@ int cuantoDividir(Pila p){
     }
     return dividendo;
 }
+*/
 
 float resultadoDelPromedio(int suma, int dividendo){
     float resulta = suma / dividendo;
 
     return resulta;
+}
+
+void decimalDesdePila(Pila p) {
+    int numero_decimal = 0;
+    int multiplicador = 1;
+
+    while (!pilaVacia(p)) {
+        int digito = desapilar(p);
+        numero_decimal += digito * multiplicador;
+        multiplicador *= 10;
+    }
+    printf("%d", numero_decimal);
 }
