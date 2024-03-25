@@ -16,6 +16,8 @@ float resultadoDelPromedio(int suma, int dividendo);
 void decimalDesdePila(Pila p);
 void ponerEnLaPila(Pila *p);
 void mostrarPila(Pila p);
+void ordenarPilaConPunto4(Pila p);
+void pilaOrdenadaconPunto6(Pila p);
 
 int main()
 {
@@ -78,16 +80,28 @@ int main()
 
     acumularPilas(&dada);
 
-    ordenarNuevaPila(&dada);
+    ordenarPilaConPunto4(dada);
     */
 
     ///Ejercicio 6
+    /*
     Pila dada;
     inicpila(&dada);
 
     acumularPilas(&dada);
-    ponerEnPilaOrdenada(&dada);
+    mostrar(&dada);
 
+    ordenarNuevaPila(&dada);
+    mostrar(&dada);
+    */
+
+    ///Ejercicio 7
+    Pila dada;
+    inicpila(&dada);
+
+    acumularPilas(&dada);
+
+    pilaOrdenadaconPunto6(dada);
 
     ///Ejercicio 8
     /*
@@ -201,96 +215,72 @@ void pasarPilaAOtraEnMismoOrden(Pila *p, Pila *au){
     mostrar(p);
     return numMenor;
 }
-
 ///---------------------------------------Ejercicio5---------------------------------------------------------------------------------------///
 
-void ordenarNuevaPila(Pila *p){
-    int num = -1;
-    Pila AUX1;
-    Pila AUX2;
-    Pila nuevaPila;
-    inicpila(&AUX1);
-    inicpila(&AUX2);
-    inicpila(&nuevaPila);
 
-    while(!pilavacia(p)){
-        if (num < 0){
-            num = desapilar(p);
-        }
+void ordenarPilaConPunto4(Pila p){
+    Pila AUX;
+    inicpila(&AUX);
+    int numPila = 0;
 
-        if (tope(p) > num){
-            apilar(&AUX1, desapilar(p));
-        }
-        else{
-            apilar(&AUX1, num);
-            num = -1;
-        }
+    while(!pilavacia(&p)){
+        numPila++;
+        apilar(&AUX, desapilar(&p));
+    }
+    while(!pilavacia(&AUX)){
+        apilar(&p, desapilar(&AUX));
     }
 
-    if (pilavacia(p) && num != -1){
-        apilar(&AUX1, num);
+    for(int i = 0; i < numPila; i++){
+        apilar(&AUX, eliminarAlMenor(&p));
     }
 
-    mostrar(&AUX1);
-
-    /*
-    while(!pilavacia(p)){
-        if (tope(p) < num){
-            num = tope(p);
-            apilar(&AUX1, desapilar(p));
-        }
-        else{
-            apilar(&AUX2, desapilar(p));
-        }
-    }
-    printf("Pila AUX1:");
-    mostrar(&AUX1);
-    printf("Pila AUX2:");
-    mostrar(&AUX2);
-
-
-    while(!pilavacia(&AUX1) && !pilavacia(&AUX2)){
-            if (tope(&AUX1) < tope(&AUX2)){
-                if (!pilavacia(&nuevaPila)){
-                    if (tope(&nuevaPila) > tope(&AUX1)){
-                        int numAxuliar = desapilar(&nuevaPila);
-                        apilar(&nuevaPila, desapilar(&AUX1));
-                        apilar(&nuevaPila, numAxuliar);
-                    }
-                }
-                apilar(&nuevaPila, desapilar(&AUX1));
-            }
-            else{
-                if (!pilavacia(&nuevaPila)){
-                    if (tope(&nuevaPila) > tope(&AUX1)){
-                        int numAxuliar = desapilar(&nuevaPila);
-                        apilar(&nuevaPila, desapilar(&AUX1));
-                        apilar(&nuevaPila, numAxuliar);
-                    }
-                }
-                apilar(&nuevaPila, desapilar(&AUX1));
-            }
-    }
-    printf("Pila nuevaPila: ");
-    mostrar(&nuevaPila);
-    */
-
+    mostrar(&AUX);
 }
+
+
 ///---------------------------------------Ejercicio6---------------------------------------------------------------------------------------///
-void ponerEnLaPila(Pila *p){
-    Pila AUX1;
-    inicpila(&AUX1);
-    int aux = -1;
 
-    while(!pilavacia(p)){
-        if (aux == -1){
-            apilar(&AUX1, desapilar(p));
-            aux = 10;
+void ordenarNuevaPila(Pila *p){
+    Pila AUX;
+    inicpila(&AUX);
+    int ordenada = 0;
+    int num = 0;
+
+    printf("Ingrese que numero quiere ingresar\n");
+    scanf("%d", &num);
+
+    while(!pilavacia(p) && ordenada == 0){
+        if (tope(p) < num){
+            apilar(&AUX, desapilar(p));
         }
-
-        if (tope(p) >)
+        else{
+            apilar(p, num);
+            ordenada = 1;
+        }
     }
+
+    while(!pilavacia(&AUX)){
+        apilar(p, desapilar(&AUX));
+    }
+
 }
+///---------------------------------------Ejercicio7---------------------------------------------------------------------------------------///
+
+void pilaOrdenadaconPunto6(Pila p){
+    Pila AUX;
+    inicpila(&AUX);
+    ordenarNuevaPila(&p);
+
+    while(!pilavacia(&p)){
+        apilar(&AUX, desapilar(&p));
+    }
+
+    printf("Pila AUX");
+    mostrar(&AUX);
+
+}
+
 ///---------------------------------------Ejercicio8---------------------------------------------------------------------------------------///
 void sumaTopeYAnterior(Pila p){
     Pila aux;
@@ -355,6 +345,7 @@ void decimalDesdePila(Pila p) {
     printf("%d", numero_decimal);
 }
 */
+
 
 ///---------------------------------------Ejercicio Extra 1---------------------------------------------------------------------------------------///
 void ponerEnLaPila(Pila *p){
